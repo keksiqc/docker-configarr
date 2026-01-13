@@ -142,4 +142,4 @@ docker pull quay.io/keksiqc/configarr:1.20.0
 # ElevenNotes™️
 This image is provided to you at your own risk. Always make backups before updating an image to a different version. Check the [releases](https://github.com/11notes/docker-configarr/releases) for breaking changes. If you have any problems with using this image simply raise an [issue](https://github.com/11notes/docker-configarr/issues), thanks. If you have a question or inputs please create a new [discussion](https://github.com/11notes/docker-configarr/discussions) instead of an issue. You can find all my other repositories on [github](https://github.com/11notes?tab=repositories).
 
-*created 13.01.2026, 16:12:19 (CET)*
+*created 13.01.2026, 16:17:44 (CET)*
