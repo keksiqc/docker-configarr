@@ -15,6 +15,7 @@ Run configarr rootless, distroless and secure by default!
 # ARR STACK IMAGES 🏴‍☠️
 This image is part of the so called arr-stack (apps to pirate and manage media content). Here is the list of all it's companion apps for the best pirate experience:
 
+- [11notes/configarr](https://github.com/11notes/docker-configarr) - as your TRaSH guide syncer for Sonarr and Radarr
 - [11notes/plex](https://github.com/11notes/docker-plex) - as your media server
 - [11notes/prowlarr](https://github.com/11notes/docker-prowlarr) - to manage all your indexers
 - [11notes/qbittorrent](https://github.com/11notes/docker-qbittorrent) - as your torrent client
@@ -83,6 +84,7 @@ volumes:
 
 networks:
   frontend:
+
 ```
 To find out how you can change the default UID/GID of this container image, consult the [RTFM](https://github.com/11notes/RTFM/blob/main/linux/container/image/11notes/how-to.changeUIDGID.md#change-uidgid-the-correct-way).
 
@@ -103,7 +105,7 @@ To find out how you can change the default UID/GID of this container image, cons
 # MAIN TAGS 🏷️
 These are the main tags for the image. There is also a tag for each commit and its shorthand sha256 value.
 
-* [1.20.0](https://hub.docker.com/r/keksiqc/configarr/tags?name=1.20.0)
+* [1.20.0](https://hub.docker.com/r/11notes/configarr/tags?name=1.20.0)
 
 ### There is no latest tag, what am I supposed to do about updates?
 It is my opinion that the ```:latest``` tag is a bad habbit and should not be used at all. Many developers introduce **breaking changes** in new releases. This would messed up everything for people who use ```:latest```. If you don’t want to change the tag to the latest [semver](https://semver.org/), simply use the short versions of [semver](https://semver.org/). Instead of using ```:1.20.0``` you can use ```:1``` or ```:1.20```. Since on each new version these tags are updated to the latest version of the software, using them is identical to using ```:latest``` but at least fixed to a major or minor version. Which in theory should not introduce breaking changes.
@@ -139,4 +141,4 @@ docker pull quay.io/keksiqc/configarr:1.20.0
 # ElevenNotes™️
 This image is provided to you at your own risk. Always make backups before updating an image to a different version. Check the [releases](https://github.com/11notes/docker-configarr/releases) for breaking changes. If you have any problems with using this image simply raise an [issue](https://github.com/11notes/docker-configarr/issues), thanks. If you have a question or inputs please create a new [discussion](https://github.com/11notes/docker-configarr/discussions) instead of an issue. You can find all my other repositories on [github](https://github.com/11notes?tab=repositories).
 
-*created 11.01.2026, 06:18:12 (CET)*
+*created 13.01.2026, 14:57:39 (CET)*
