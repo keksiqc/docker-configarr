@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
   github.com/go-co-op/gocron/v2 v2.16.2
-  github.com/11notes/go/util v1.1.2
+  github.com/11notes/go/util v0.0.0-20250825214819-2332661ae591
 )
 
 require (
