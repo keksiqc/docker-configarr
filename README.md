@@ -1,7 +1,7 @@
 ![banner](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/banner/README.png)
 
 # CONFIGARR
-![size](https://img.shields.io/badge/image_size-${{ image_size }}-green?color=%2338ad2d)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/markdown/transparent5x2px.png)![pulls](https://img.shields.io/docker/pulls/11notes/configarr?color=2b75d6)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/markdown/transparent5x2px.png)[<img src="https://img.shields.io/github/issues/11notes/docker-configarr?color=7842f5">](https://github.com/11notes/docker-configarr/issues)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/markdown/transparent5x2px.png)![swiss_made](https://img.shields.io/badge/Swiss_Made-FFFFFF?labelColor=FF0000&logo=data:image/svg%2bxml;base64,PHN2ZyB2ZXJzaW9uPSIxIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDMyIDMyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0idHJhbnNwYXJlbnQiLz4KICA8cGF0aCBkPSJtMTMgNmg2djdoN3Y2aC03djdoLTZ2LTdoLTd2LTZoN3oiIGZpbGw9IiNmZmYiLz4KPC9zdmc+)
+![size](https://img.shields.io/badge/image_size-${{ image_size }}-green?color=%2338ad2d)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/markdown/transparent5x2px.png)![pulls](https://img.shields.io/docker/pulls/keksiqc/configarr?color=2b75d6)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/markdown/transparent5x2px.png)[<img src="https://img.shields.io/github/issues/11notes/docker-configarr?color=7842f5">](https://github.com/11notes/docker-configarr/issues)![5px](https://raw.githubusercontent.com/11notes/static/refs/heads/main/img/markdown/transparent5x2px.png)![swiss_made](https://img.shields.io/badge/Swiss_Made-FFFFFF?labelColor=FF0000&logo=data:image/svg%2bxml;base64,PHN2ZyB2ZXJzaW9uPSIxIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDMyIDMyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0idHJhbnNwYXJlbnQiLz4KICA8cGF0aCBkPSJtMTMgNmg2djdoN3Y2aC03djdoLTZ2LTdoLTd2LTZoN3oiIGZpbGw9IiNmZmYiLz4KPC9zdmc+)
 
 Run configarr rootless, distroless and secure by default!
 
@@ -64,7 +64,7 @@ x-lockdown: &lockdown
 
 services:
   configarr:
-    image: "11notes/configarr:1.20.0"
+    image: "keksiqc/configarr:1.20.0"
     <<: *lockdown
     environment:
       TZ: "Europe/Zurich"
@@ -103,7 +103,7 @@ To find out how you can change the default UID/GID of this container image, cons
 # MAIN TAGS 🏷️
 These are the main tags for the image. There is also a tag for each commit and its shorthand sha256 value.
 
-* [1.20.0](https://hub.docker.com/r/11notes/configarr/tags?name=1.20.0)
+* [1.20.0](https://hub.docker.com/r/keksiqc/configarr/tags?name=1.20.0)
 
 ### There is no latest tag, what am I supposed to do about updates?
 It is my opinion that the ```:latest``` tag is a bad habbit and should not be used at all. Many developers introduce **breaking changes** in new releases. This would messed up everything for people who use ```:latest```. If you don’t want to change the tag to the latest [semver](https://semver.org/), simply use the short versions of [semver](https://semver.org/). Instead of using ```:1.20.0``` you can use ```:1``` or ```:1.20```. Since on each new version these tags are updated to the latest version of the software, using them is identical to using ```:latest``` but at least fixed to a major or minor version. Which in theory should not introduce breaking changes.
@@ -112,13 +112,13 @@ If you still insist on having the bleeding edge release of this app, simply use 
 
 # REGISTRIES ☁️
 ```
-docker pull 11notes/configarr:1.20.0
-docker pull ghcr.io/11notes/configarr:1.20.0
-docker pull quay.io/11notes/configarr:1.20.0
+docker pull keksiqc/configarr:1.20.0
+docker pull ghcr.io/keksiqc/configarr:1.20.0
+docker pull quay.io/keksiqc/configarr:1.20.0
 ```
 
 # SOURCE 💾
-* [11notes/configarr](https://github.com/11notes/docker-configarr)
+* [keksiqc/configarr](https://github.com/11notes/docker-configarr)
 
 # PARENT IMAGE 🏛️
 > [!IMPORTANT]
