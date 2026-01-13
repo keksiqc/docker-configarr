@@ -314,28 +314,13 @@ jobs:
       # ╔═════════════════════════════════════════════════════╗
       # ║             CONTAINER REGISTRY LOGIN                ║
       # ╚═════════════════════════════════════════════════════╝
-      # DOCKER HUB
-      - name: docker / login to hub
-        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
-        with:
-          username: 11notes
-          password: ${{ secrets.DOCKER_TOKEN }}
-
       # GITHUB CONTAINER REGISTRY
       - name: github / login to ghcr
         uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
         with:
           registry: ghcr.io
-          username: 11notes
+          username: keksiqc
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      # REDHAT QUAY
-      - name: quay / login to quay
-        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
-        with:
-          registry: quay.io
-          username: 11notes+github
-          password: ${{ secrets.QUAY_TOKEN }}
 
 
       # ╔═════════════════════════════════════════════════════╗
