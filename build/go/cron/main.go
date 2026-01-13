@@ -1,54 +1,55 @@
 package main
 
 import (
+	"bufio"
+	"io"
+	"log/slog"
 	"os"
 	"os/exec"
 	"os/signal"
 	"syscall"
-	"bufio"
-	"io"
-	"github.com/go-co-op/gocron/v2"
 
-	"github.com/11notes/go/util"
+	"github.com/go-co-op/gocron/v2"
 )
 
 const SCHEDULE = "CONFIGARR_SCHEDULE"
 
 var (
-	PID int = 0
+	PID    int
+	logger = slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))
 )
 
-func main(){
+func main() {
 	// catch syscalls
 	signalChannel := make(chan os.Signal, 1)
 	signal.Notify(signalChannel, syscall.SIGTERM, syscall.SIGSTOP, syscall.SIGINT)
 	go func() {
-		<- signalChannel
+		<-signalChannel
 		os.Exit(0)
 	}()
 
 	// check arguments
-	if(len(os.Args) > 1){
+	if len(os.Args) > 1 {
 		args := os.Args[1:]
 		switch args[0] {
-			case "--ping":
-				_, err := os.FindProcess(PID)
-				if err != nil{
-					os.Exit(1)
-				}
-				os.Exit(0)
+		case "--ping":
+			_, err := os.FindProcess(PID)
+			if err != nil {
+				os.Exit(1)
+			}
+			os.Exit(0)
 		}
-	}else{
+	} else {
 		// set schedule
 		if _, ok := os.LookupEnv(SCHEDULE); ok {
-			util.Log("inf", "setting schedule: " + os.Getenv(SCHEDULE))
+			logger.Info("setting schedule", "cron", os.Getenv(SCHEDULE))
 			scheduler, err := gocron.NewScheduler()
 			if err != nil {
-				util.Log("err", "cron error: " + err.Error())
+				logger.Error("cron error", "err", err)
 			}
 			_, err = scheduler.NewJob(gocron.CronJob(os.Getenv(SCHEDULE), false), gocron.NewTask(run))
 			if err != nil {
-				util.Log("err", "cron error: " + err.Error())
+				logger.Error("cron error", "err", err)
 			}
 			scheduler.Start()
 		}
@@ -61,33 +62,33 @@ func main(){
 	}
 }
 
-func run(){
+func run() {
 	cmd := exec.Command("/usr/local/bin/node", "/opt/configarr/bundle.cjs")
-	cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid:true}
+	cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
 
 	stdout, _ := cmd.StdoutPipe()
 	stderr, _ := cmd.StderrPipe()
 
 	go func() {
-		stdoutScanner := bufio.NewScanner(io.MultiReader(stdout,stderr))
+		stdoutScanner := bufio.NewScanner(io.MultiReader(stdout, stderr))
 		for stdoutScanner.Scan() {
 			stdout := stdoutScanner.Text()
-			util.Log("inf", stdout)
+			logger.Info("configarr output", "line", stdout)
 		}
 	}()
 
 	// start process
 	err := cmd.Start()
 	PID = cmd.Process.Pid
-	util.Log("inf", "starting configarr sync process")
+	logger.Info("starting configarr sync process", "pid", PID)
 	if err != nil {
-		util.Log("err", "sync error: " + err.Error())
-	}else{
+		logger.Error("sync error", "err", err)
+	} else {
 		err = cmd.Wait()
 		if err != nil {
-			util.Log("err", "sync error: " + err.Error())
-		}else{
-			util.Log("inf", "sync complete")
+			logger.Error("sync error", "err", err)
+		} else {
+			logger.Info("sync complete")
 		}
 	}
 }
