@@ -1,8 +1,6 @@
 package main
 
 import (
-	"bufio"
-	"io"
 	"log/slog"
 	"os"
 	"os/exec"
@@ -65,17 +63,8 @@ func main() {
 func run() {
 	cmd := exec.Command("/usr/local/bin/node", "/opt/configarr/bundle.cjs")
 	cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true}
-
-	stdout, _ := cmd.StdoutPipe()
-	stderr, _ := cmd.StderrPipe()
-
-	go func() {
-		stdoutScanner := bufio.NewScanner(io.MultiReader(stdout, stderr))
-		for stdoutScanner.Scan() {
-			stdout := stdoutScanner.Text()
-			logger.Info("configarr output", "line", stdout)
-		}
-	}()
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 
 	// start process
 	err := cmd.Start()
