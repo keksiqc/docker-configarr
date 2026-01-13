@@ -318,9 +318,9 @@ jobs:
       - name: github / login to ghcr
         uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
         with:
-          registry: ghcr.io
-          username: keksiqc
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
 
 
       # ╔═════════════════════════════════════════════════════╗
@@ -469,7 +469,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        registry: [docker.io, ghcr.io, quay.io]
+        registry: [ghcr.io]
 
     env:
       DOCKER_IMAGE_NAME: ${{ needs.docker.outputs.DOCKER_IMAGE_NAME }}
@@ -485,28 +485,13 @@ jobs:
       # ╔═════════════════════════════════════════════════════╗
       # ║             CONTAINER REGISTRY LOGIN                ║
       # ╚═════════════════════════════════════════════════════╝
-      # DOCKER HUB
-      - name: docker / login to hub
-        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
-        with:
-          username: 11notes
-          password: ${{ secrets.DOCKER_TOKEN }}
-
       # GITHUB CONTAINER REGISTRY
       - name: github / login to ghcr
         uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
         with:
-          registry: ghcr.io
-          username: 11notes
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      # REDHAT QUAY
-      - name: quay / login to quay
-        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
-        with:
-          registry: quay.io
-          username: 11notes+github
-          password: ${{ secrets.QUAY_TOKEN }}
+          registry: ghcr.io
 
 
       # ╔═════════════════════════════════════════════════════╗
@@ -582,16 +567,6 @@ jobs:
           fetch-depth: 0
 
       # ╔═════════════════════════════════════════════════════╗
-      # ║             CONTAINER REGISTRY LOGIN                ║
-      # ╚═════════════════════════════════════════════════════╝
-      # DOCKER HUB
-      - name: docker / login to hub
-        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
-        with:
-          username: 11notes
-          password: ${{ secrets.DOCKER_TOKEN }}
-
-      # ╔═════════════════════════════════════════════════════╗
       # ║                  CREATE README.md                   ║
       # ╚═════════════════════════════════════════════════════╝
       # CHECKOUT HEAD TO BE UP TO DATE WITH EVERYTHING
@@ -605,20 +580,6 @@ jobs:
         id: github-readme
         continue-on-error: true
         uses: 11notes/action-docker-readme@v1
-
-      # UPLOAD README.md to DOCKER HUB
-      - name: README.md / push to Docker Hub
-        continue-on-error: true
-        if: steps.github-readme.outcome == 'success' && hashFiles('README_NONGITHUB.md') != ''
-        uses: christian-korneck/update-container-description-action@d36005551adeaba9698d8d67a296bd16fa91f8e8 # v1
-        env:
-          DOCKER_USER: 11notes
-          DOCKER_PASS: ${{ secrets.DOCKER_TOKEN }}
-        with:
-          destination_container_repo: ${{ env.DOCKER_IMAGE_NAME }}
-          provider: dockerhub
-          short_description: ${{ env.DOCKER_IMAGE_DESCRIPTION }}
-          readme_file: 'README_NONGITHUB.md'
 
       # COMMIT NEW README.md, LICENSE and compose
       - name: README.md / github commit & push
