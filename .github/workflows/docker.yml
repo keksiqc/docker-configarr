@@ -14,7 +14,7 @@ on:
         description: 'list of platforms to build for'
         type: string
         required: false
-        default: "amd64,arm64,arm/v7"
+        default: "amd64,arm64"
 
       build:
         description: 'set WORKFLOW_BUILD'
